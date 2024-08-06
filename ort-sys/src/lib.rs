@@ -12,7 +12,7 @@ pub mod internal;
 
 pub const ORT_API_VERSION: u32 = 18;
 
-pub use std::ffi::{c_char, c_int, c_ulong, c_ulonglong, c_ushort, c_void};
+pub use std::ffi::{c_char, c_int, c_uint, c_ulong, c_ulonglong, c_ushort, c_void};
 
 #[cfg(target_os = "windows")]
 pub type ortchar = c_ushort;
@@ -21,6 +21,8 @@ pub type ortchar = c_char;
 
 #[cfg(any(target_arch = "x86_64", target_arch = "x86", target_arch = "wasm32"))]
 pub type size_t = usize;
+#[cfg(any(target_arch = "mips", target_arch = "mips"))]
+pub type size_t = c_uint;
 #[cfg(all(target_arch = "aarch64", target_os = "windows"))]
 pub type size_t = c_ulonglong;
 #[cfg(all(any(target_arch = "aarch64", target_arch = "arm"), not(target_os = "windows")))]
@@ -80,7 +82,7 @@ pub enum ONNXTensorElementDataType {
 	ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT8E4M3FN = 17,
 	ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT8E4M3FNUZ = 18,
 	ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT8E5M2 = 19,
-	ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT8E5M2FNUZ = 20
+	ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT8E5M2FNUZ = 20,
 }
 #[repr(i32)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -91,7 +93,7 @@ pub enum ONNXType {
 	ONNX_TYPE_MAP = 3,
 	ONNX_TYPE_OPAQUE = 4,
 	ONNX_TYPE_SPARSETENSOR = 5,
-	ONNX_TYPE_OPTIONAL = 6
+	ONNX_TYPE_OPTIONAL = 6,
 }
 #[repr(i32)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -99,7 +101,7 @@ pub enum OrtSparseFormat {
 	ORT_SPARSE_UNDEFINED = 0,
 	ORT_SPARSE_COO = 1,
 	ORT_SPARSE_CSRC = 2,
-	ORT_SPARSE_BLOCK_SPARSE = 4
+	ORT_SPARSE_BLOCK_SPARSE = 4,
 }
 #[repr(i32)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -107,7 +109,7 @@ pub enum OrtSparseIndicesFormat {
 	ORT_SPARSE_COO_INDICES = 0,
 	ORT_SPARSE_CSR_INNER_INDICES = 1,
 	ORT_SPARSE_CSR_OUTER_INDICES = 2,
-	ORT_SPARSE_BLOCK_SPARSE_INDICES = 3
+	ORT_SPARSE_BLOCK_SPARSE_INDICES = 3,
 }
 #[repr(i32)]
 #[doc = " \\brief Logging severity levels\n\n In typical API usage, specifying a logging severity level specifies the minimum severity of log messages to show."]
@@ -122,7 +124,7 @@ pub enum OrtLoggingLevel {
 	#[doc = "< Error messages."]
 	ORT_LOGGING_LEVEL_ERROR = 3,
 	#[doc = "< Fatal error messages (most severe)."]
-	ORT_LOGGING_LEVEL_FATAL = 4
+	ORT_LOGGING_LEVEL_FATAL = 4,
 }
 #[repr(i32)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -138,7 +140,7 @@ pub enum OrtErrorCode {
 	ORT_MODEL_LOADED = 8,
 	ORT_NOT_IMPLEMENTED = 9,
 	ORT_INVALID_GRAPH = 10,
-	ORT_EP_FAIL = 11
+	ORT_EP_FAIL = 11,
 }
 #[repr(i32)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -149,142 +151,142 @@ pub enum OrtOpAttrType {
 	ORT_OP_ATTR_FLOAT = 3,
 	ORT_OP_ATTR_FLOATS = 4,
 	ORT_OP_ATTR_STRING = 5,
-	ORT_OP_ATTR_STRINGS = 6
+	ORT_OP_ATTR_STRINGS = 6,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtEnv {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtStatus {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtMemoryInfo {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtIoBinding {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtSession {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtValue {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtRunOptions {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtTypeInfo {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtTensorTypeAndShapeInfo {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtMapTypeInfo {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtSequenceTypeInfo {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtOptionalTypeInfo {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtSessionOptions {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtCustomOpDomain {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtModelMetadata {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtThreadPoolParams {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtThreadingOptions {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtArenaCfg {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtPrepackedWeightsContainer {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtTensorRTProviderOptionsV2 {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtCUDAProviderOptionsV2 {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtCANNProviderOptions {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtDnnlProviderOptions {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtOp {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtOpAttr {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtLogger {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtShapeInferContext {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 pub type OrtStatusPtr = *mut OrtStatus;
 #[doc = " \\brief Memory allocation interface\n\n Structure of function pointers that defines a memory allocator. This can be created and filled in by the user for custom allocators.\n\n When an allocator is passed to any function, be sure that the allocator object is not destroyed until the last allocated object using it is freed."]
@@ -299,7 +301,7 @@ pub struct OrtAllocator {
 	pub Free: ::std::option::Option<_system!(unsafe fn(this_: *mut OrtAllocator, p: *mut ::std::os::raw::c_void))>,
 	#[doc = "< Return a pointer to an ::OrtMemoryInfo that describes this allocator"]
 	pub Info: ::std::option::Option<_system!(unsafe fn(this_: *const OrtAllocator) -> *const OrtMemoryInfo)>,
-	pub Reserve: ::std::option::Option<_system!(unsafe fn(this_: *const OrtAllocator, size: size_t) -> *mut ::std::os::raw::c_void)>
+	pub Reserve: ::std::option::Option<_system!(unsafe fn(this_: *const OrtAllocator, size: size_t) -> *mut ::std::os::raw::c_void)>,
 }
 #[test]
 fn bindgen_test_layout_OrtAllocator() {
@@ -336,9 +338,9 @@ pub type OrtLoggingFunction = ::std::option::Option<
 			category: *const ::std::os::raw::c_char,
 			logid: *const ::std::os::raw::c_char,
 			code_location: *const ::std::os::raw::c_char,
-			message: *const ::std::os::raw::c_char
+			message: *const ::std::os::raw::c_char,
 		)
-	)
+	),
 >;
 #[repr(i32)]
 #[doc = " \\brief Graph optimization level\n\n Refer to https://www.onnxruntime.ai/docs/performance/graph-optimizations.html#graph-optimization-levels\n for an in-depth understanding of the Graph Optimization Levels."]
@@ -347,13 +349,13 @@ pub enum GraphOptimizationLevel {
 	ORT_DISABLE_ALL = 0,
 	ORT_ENABLE_BASIC = 1,
 	ORT_ENABLE_EXTENDED = 2,
-	ORT_ENABLE_ALL = 99
+	ORT_ENABLE_ALL = 99,
 }
 #[repr(i32)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum ExecutionMode {
 	ORT_SEQUENTIAL = 0,
-	ORT_PARALLEL = 1
+	ORT_PARALLEL = 1,
 }
 #[repr(i32)]
 #[doc = " \\brief Language projection identifiers\n /see OrtApi::SetLanguageProjection"]
@@ -365,24 +367,24 @@ pub enum OrtLanguageProjection {
 	ORT_PROJECTION_PYTHON = 3,
 	ORT_PROJECTION_JAVA = 4,
 	ORT_PROJECTION_WINML = 5,
-	ORT_PROJECTION_NODEJS = 6
+	ORT_PROJECTION_NODEJS = 6,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtKernelInfo {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtKernelContext {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(i32)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum OrtAllocatorType {
 	OrtInvalidAllocator = -1,
 	OrtDeviceAllocator = 0,
-	OrtArenaAllocator = 1
+	OrtArenaAllocator = 1,
 }
 impl OrtMemType {
 	pub const OrtMemTypeCPU: OrtMemType = OrtMemType::OrtMemTypeCPUOutput;
@@ -396,7 +398,7 @@ pub enum OrtMemType {
 	#[doc = "< CPU accessible memory outputted by non-CPU execution provider, i.e. CUDA_PINNED"]
 	OrtMemTypeCPUOutput = -1,
 	#[doc = "< The default allocator for execution provider"]
-	OrtMemTypeDefault = 0
+	OrtMemTypeDefault = 0,
 }
 #[repr(i32)]
 #[doc = " \\brief This mimics OrtDevice type constants so they can be returned in the API"]
@@ -404,7 +406,7 @@ pub enum OrtMemType {
 pub enum OrtMemoryInfoDeviceType {
 	OrtMemoryInfoDeviceType_CPU = 0,
 	OrtMemoryInfoDeviceType_GPU = 1,
-	OrtMemoryInfoDeviceType_FPGA = 2
+	OrtMemoryInfoDeviceType_FPGA = 2,
 }
 #[repr(i32)]
 #[doc = " \\brief Algorithm to use for cuDNN Convolution Op"]
@@ -412,7 +414,7 @@ pub enum OrtMemoryInfoDeviceType {
 pub enum OrtCudnnConvAlgoSearch {
 	OrtCudnnConvAlgoSearchExhaustive = 0,
 	OrtCudnnConvAlgoSearchHeuristic = 1,
-	OrtCudnnConvAlgoSearchDefault = 2
+	OrtCudnnConvAlgoSearchDefault = 2,
 }
 #[doc = " \\brief CUDA Provider Options\n\n \\see OrtApi::SessionOptionsAppendExecutionProvider_CUDA"]
 #[repr(C)]
@@ -439,7 +441,7 @@ pub struct OrtCUDAProviderOptions {
 	#[doc = " \\brief Enable TunableOp for tuning.\n   Set it to 1/0 to enable/disable TunableOp tuning. Otherwise, it is disabled by default.\n   This option can be overriden by environment variable ORT_CUDA_TUNABLE_OP_TUNING_ENABLE."]
 	pub tunable_op_tuning_enable: ::std::os::raw::c_int,
 	#[doc = " \\brief Max tuning duration time limit for each instance of TunableOp.\n   Defaults to 0 to disable the limit."]
-	pub tunable_op_max_tuning_duration_ms: ::std::os::raw::c_int
+	pub tunable_op_max_tuning_duration_ms: ::std::os::raw::c_int,
 }
 #[test]
 fn bindgen_test_layout_OrtCUDAProviderOptions() {
@@ -529,7 +531,7 @@ pub struct OrtROCMProviderOptions {
 	#[doc = " \\brief Enable TunableOp for tuning.\n   Set it to 1/0 to enable/disable TunableOp tuning. Otherwise, it is disabled by default.\n   This option can be overriden by environment variable ORT_ROCM_TUNABLE_OP_TUNING_ENABLE."]
 	pub tunable_op_tuning_enable: ::std::os::raw::c_int,
 	#[doc = " \\brief Max tuning duration time limit for each instance of TunableOp.\n   Defaults to 0 to disable the limit."]
-	pub tunable_op_max_tuning_duration_ms: ::std::os::raw::c_int
+	pub tunable_op_max_tuning_duration_ms: ::std::os::raw::c_int,
 }
 #[test]
 fn bindgen_test_layout_OrtROCMProviderOptions() {
@@ -615,7 +617,7 @@ pub struct OrtTensorRTProviderOptions {
 	pub trt_engine_cache_path: *const ::std::os::raw::c_char,
 	pub trt_engine_decryption_enable: ::std::os::raw::c_int,
 	pub trt_engine_decryption_lib_path: *const ::std::os::raw::c_char,
-	pub trt_force_sequential_engine_build: ::std::os::raw::c_int
+	pub trt_force_sequential_engine_build: ::std::os::raw::c_int,
 }
 #[test]
 fn bindgen_test_layout_OrtTensorRTProviderOptions() {
@@ -722,7 +724,7 @@ pub struct OrtMIGraphXProviderOptions {
 	pub migraphx_fp16_enable: ::std::os::raw::c_int,
 	pub migraphx_int8_enable: ::std::os::raw::c_int,
 	pub migraphx_use_native_calibration_table: ::std::os::raw::c_int,
-	pub migraphx_int8_calibration_table_name: *const ::std::os::raw::c_char
+	pub migraphx_int8_calibration_table_name: *const ::std::os::raw::c_char,
 }
 #[test]
 fn bindgen_test_layout_OrtMIGraphXProviderOptions() {
@@ -772,7 +774,7 @@ pub struct OrtOpenVINOProviderOptions {
 	#[doc = "< 0 = disabled, nonzero = enabled"]
 	pub enable_opencl_throttling: ::std::os::raw::c_uchar,
 	#[doc = "< 0 = disabled, nonzero = enabled"]
-	pub enable_dynamic_shapes: ::std::os::raw::c_uchar
+	pub enable_dynamic_shapes: ::std::os::raw::c_uchar,
 }
 #[test]
 fn bindgen_test_layout_OrtOpenVINOProviderOptions() {
@@ -824,19 +826,19 @@ fn bindgen_test_layout_OrtOpenVINOProviderOptions() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtTrainingSession {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtCheckpointState {
-	_unused: [u8; 0]
+	_unused: [u8; 0],
 }
 #[repr(i32)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum OrtPropertyType {
 	OrtIntProperty = 0,
 	OrtFloatProperty = 1,
-	OrtStringProperty = 2
+	OrtStringProperty = 2,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -844,7 +846,7 @@ pub struct OrtTrainingApi {
 	pub LoadCheckpoint:
 		::std::option::Option<_system!(unsafe fn(checkpoint_path: *const ortchar, checkpoint_state: *mut *mut OrtCheckpointState) -> OrtStatusPtr)>,
 	pub SaveCheckpoint: ::std::option::Option<
-		_system!(unsafe fn(checkpoint_state: *mut OrtCheckpointState, checkpoint_path: *const ortchar, include_optimizer_state: bool) -> OrtStatusPtr)
+		_system!(unsafe fn(checkpoint_state: *mut OrtCheckpointState, checkpoint_path: *const ortchar, include_optimizer_state: bool) -> OrtStatusPtr),
 	>,
 	pub CreateTrainingSession: ::std::option::Option<
 		_system!(
@@ -855,9 +857,9 @@ pub struct OrtTrainingApi {
 				train_model_path: *const ortchar,
 				eval_model_path: *const ortchar,
 				optimizer_model_path: *const ortchar,
-				out: *mut *mut OrtTrainingSession
+				out: *mut *mut OrtTrainingSession,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub CreateTrainingSessionFromBuffer: ::std::option::Option<
 		_system!(
@@ -871,18 +873,18 @@ pub struct OrtTrainingApi {
 				eval_data_length: size_t,
 				optimizer_model_data: *const (),
 				optimizer_data_length: size_t,
-				out: *mut *mut OrtTrainingSession
+				out: *mut *mut OrtTrainingSession,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub TrainingSessionGetTrainingModelOutputCount:
 		::std::option::Option<_system!(unsafe fn(sess: *const OrtTrainingSession, out: *mut size_t) -> OrtStatusPtr)>,
 	pub TrainingSessionGetEvalModelOutputCount: ::std::option::Option<_system!(unsafe fn(sess: *const OrtTrainingSession, out: *mut size_t) -> OrtStatusPtr)>,
 	pub TrainingSessionGetTrainingModelOutputName: ::std::option::Option<
-		_system!(unsafe fn(sess: *const OrtTrainingSession, index: size_t, allocator: *mut OrtAllocator, output: *mut *mut c_char) -> OrtStatusPtr)
+		_system!(unsafe fn(sess: *const OrtTrainingSession, index: size_t, allocator: *mut OrtAllocator, output: *mut *mut c_char) -> OrtStatusPtr),
 	>,
 	pub TrainingSessionGetEvalModelOutputName: ::std::option::Option<
-		_system!(unsafe fn(sess: *const OrtTrainingSession, index: size_t, allocator: *mut OrtAllocator, output: *mut *mut c_char) -> OrtStatusPtr)
+		_system!(unsafe fn(sess: *const OrtTrainingSession, index: size_t, allocator: *mut OrtAllocator, output: *mut *mut c_char) -> OrtStatusPtr),
 	>,
 	pub LazyResetGrad: ::std::option::Option<_system!(unsafe fn(session: *mut OrtTrainingSession) -> OrtStatusPtr)>,
 	pub TrainStep: ::std::option::Option<
@@ -893,9 +895,9 @@ pub struct OrtTrainingApi {
 				inputs_len: size_t,
 				inputs: *const *const OrtValue,
 				outputs_len: size_t,
-				outputs: *mut *mut OrtValue
+				outputs: *mut *mut OrtValue,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub EvalStep: ::std::option::Option<
 		_system!(
@@ -905,15 +907,15 @@ pub struct OrtTrainingApi {
 				inputs_len: size_t,
 				inputs: *const *const OrtValue,
 				outputs_len: size_t,
-				outputs: *mut *mut OrtValue
+				outputs: *mut *mut OrtValue,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub SetLearningRate: ::std::option::Option<_system!(unsafe fn(session: *mut OrtTrainingSession, learning_rate: f32) -> OrtStatusPtr)>,
 	pub GetLearningRate: ::std::option::Option<_system!(unsafe fn(session: *mut OrtTrainingSession, learning_rate: *mut f32) -> OrtStatusPtr)>,
 	pub OptimizerStep: ::std::option::Option<_system!(unsafe fn(session: *mut OrtTrainingSession, run_options: *const OrtRunOptions) -> OrtStatusPtr)>,
 	pub RegisterLinearLRScheduler: ::std::option::Option<
-		_system!(unsafe fn(session: *mut OrtTrainingSession, warmup_step_count: i64, total_step_count: i64, initial_lr: f32) -> OrtStatusPtr)
+		_system!(unsafe fn(session: *mut OrtTrainingSession, warmup_step_count: i64, total_step_count: i64, initial_lr: f32) -> OrtStatusPtr),
 	>,
 	pub SchedulerStep: ::std::option::Option<_system!(unsafe fn(session: *mut OrtTrainingSession) -> OrtStatusPtr)>,
 	pub GetParametersSize: ::std::option::Option<_system!(unsafe fn(session: *mut OrtTrainingSession, out: *mut size_t, trainable_only: bool) -> OrtStatusPtr)>,
@@ -929,10 +931,10 @@ pub struct OrtTrainingApi {
 				session: *mut OrtTrainingSession,
 				inference_model_path: *const ortchar,
 				graph_outputs_len: usize,
-				graph_output_names: *const *const c_char
+				graph_output_names: *const *const c_char,
 			) -> OrtStatusPtr
-		)
-	>
+		),
+	>,
 }
 #[doc = " \\brief The helper interface to get the right version of OrtApi\n\n Get a pointer to this structure through ::OrtGetApiBase"]
 #[repr(C)]
@@ -941,7 +943,7 @@ pub struct OrtApiBase {
 	#[doc = " \\brief Get a pointer to the requested version of the ::OrtApi\n\n \\param[in] version Must be ::ORT_API_VERSION\n \\return The ::OrtApi for the version requested, nullptr will be returned if this version is unsupported, for example when using a runtime\n   older than the version created with this header file.\n\n One can call GetVersionString() to get the version of the Onnxruntime library for logging\n and error reporting purposes."]
 	pub GetApi: ::std::option::Option<_system!(unsafe fn(version: u32) -> *const OrtApi)>,
 	#[doc = " \\brief Returns a null terminated string of the version of the Onnxruntime library (eg: \"1.8.1\")\n\n  \\return UTF-8 encoded version string. Do not deallocate the returned buffer."]
-	pub GetVersionString: ::std::option::Option<_system!(unsafe fn() -> *const ::std::os::raw::c_char)>
+	pub GetVersionString: ::std::option::Option<_system!(unsafe fn() -> *const ::std::os::raw::c_char)>,
 }
 #[test]
 fn bindgen_test_layout_OrtApiBase() {
@@ -969,7 +971,7 @@ pub type OrtThreadWorkerFn = ::std::option::Option<_system!(unsafe fn(ort_worker
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OrtCustomHandleType {
-	pub __place_holder: ::std::os::raw::c_char
+	pub __place_holder: ::std::os::raw::c_char,
 }
 #[test]
 fn bindgen_test_layout_OrtCustomHandleType() {
@@ -990,9 +992,9 @@ pub type OrtCustomCreateThreadFn = ::std::option::Option<
 		unsafe fn(
 			ort_custom_thread_creation_options: *mut ::std::os::raw::c_void,
 			ort_thread_worker_fn: OrtThreadWorkerFn,
-			ort_worker_fn_param: *mut ::std::os::raw::c_void
+			ort_worker_fn_param: *mut ::std::os::raw::c_void,
 		) -> OrtCustomThreadHandle
-	)
+	),
 >;
 #[doc = " \\brief Custom thread join function\n\n Onnxruntime thread pool destructor will call the function to join a custom thread.\n Argument ort_custom_thread_handle is the value returned by OrtCustomCreateThreadFn"]
 pub type OrtCustomJoinThreadFn = ::std::option::Option<_system!(unsafe fn(ort_custom_thread_handle: OrtCustomThreadHandle))>;
@@ -1010,7 +1012,7 @@ pub struct OrtApi {
 	#[doc = " \\brief Get error string from OrtStatus\n\n \\param[in] status\n \\return The error message inside the `status`. Do not free the returned value."]
 	pub GetErrorMessage: ::std::option::Option<_system!(unsafe fn(status: *const OrtStatus) -> *const ::std::os::raw::c_char)>,
 	pub CreateEnv: ::std::option::Option<
-		_system!(unsafe fn(log_severity_level: OrtLoggingLevel, logid: *const ::std::os::raw::c_char, out: *mut *mut OrtEnv) -> OrtStatusPtr)
+		_system!(unsafe fn(log_severity_level: OrtLoggingLevel, logid: *const ::std::os::raw::c_char, out: *mut *mut OrtEnv) -> OrtStatusPtr),
 	>,
 	pub CreateEnvWithCustomLogger: ::std::option::Option<
 		_system!(
@@ -1019,14 +1021,14 @@ pub struct OrtApi {
 				logger_param: *mut ::std::os::raw::c_void,
 				log_severity_level: OrtLoggingLevel,
 				logid: *const ::std::os::raw::c_char,
-				out: *mut *mut OrtEnv
+				out: *mut *mut OrtEnv,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub EnableTelemetryEvents: ::std::option::Option<_system!(unsafe fn(env: *const OrtEnv) -> OrtStatusPtr)>,
 	pub DisableTelemetryEvents: ::std::option::Option<_system!(unsafe fn(env: *const OrtEnv) -> OrtStatusPtr)>,
 	pub CreateSession: ::std::option::Option<
-		_system!(unsafe fn(env: *const OrtEnv, model_path: *const ortchar, options: *const OrtSessionOptions, out: *mut *mut OrtSession) -> OrtStatusPtr)
+		_system!(unsafe fn(env: *const OrtEnv, model_path: *const ortchar, options: *const OrtSessionOptions, out: *mut *mut OrtSession) -> OrtStatusPtr),
 	>,
 	pub CreateSessionFromArray: ::std::option::Option<
 		_system!(
@@ -1035,9 +1037,9 @@ pub struct OrtApi {
 				model_data: *const ::std::os::raw::c_void,
 				model_data_length: size_t,
 				options: *const OrtSessionOptions,
-				out: *mut *mut OrtSession
+				out: *mut *mut OrtSession,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub Run: ::std::option::Option<
 		_system!(
@@ -1049,9 +1051,9 @@ pub struct OrtApi {
 				input_len: size_t,
 				output_names: *const *const ::std::os::raw::c_char,
 				output_names_len: size_t,
-				outputs: *mut *mut OrtValue
+				outputs: *mut *mut OrtValue,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub CreateSessionOptions: ::std::option::Option<_system!(unsafe fn(options: *mut *mut OrtSessionOptions) -> OrtStatusPtr)>,
 	pub SetOptimizedModelFilePath:
@@ -1086,9 +1088,9 @@ pub struct OrtApi {
 			unsafe fn(
 				options: *mut OrtSessionOptions,
 				library_path: *const ::std::os::raw::c_char,
-				library_handle: *mut *mut ::std::os::raw::c_void
+				library_handle: *mut *mut ::std::os::raw::c_void,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub SessionGetInputCount: ::std::option::Option<_system!(unsafe fn(session: *const OrtSession, out: *mut size_t) -> OrtStatusPtr)>,
 	pub SessionGetOutputCount: ::std::option::Option<_system!(unsafe fn(session: *const OrtSession, out: *mut size_t) -> OrtStatusPtr)>,
@@ -1100,13 +1102,13 @@ pub struct OrtApi {
 	pub SessionGetOverridableInitializerTypeInfo:
 		::std::option::Option<_system!(unsafe fn(session: *const OrtSession, index: size_t, type_info: *mut *mut OrtTypeInfo) -> OrtStatusPtr)>,
 	pub SessionGetInputName: ::std::option::Option<
-		_system!(unsafe fn(session: *const OrtSession, index: size_t, allocator: *mut OrtAllocator, value: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr)
+		_system!(unsafe fn(session: *const OrtSession, index: size_t, allocator: *mut OrtAllocator, value: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr),
 	>,
 	pub SessionGetOutputName: ::std::option::Option<
-		_system!(unsafe fn(session: *const OrtSession, index: size_t, allocator: *mut OrtAllocator, value: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr)
+		_system!(unsafe fn(session: *const OrtSession, index: size_t, allocator: *mut OrtAllocator, value: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr),
 	>,
 	pub SessionGetOverridableInitializerName: ::std::option::Option<
-		_system!(unsafe fn(session: *const OrtSession, index: size_t, allocator: *mut OrtAllocator, value: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr)
+		_system!(unsafe fn(session: *const OrtSession, index: size_t, allocator: *mut OrtAllocator, value: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr),
 	>,
 	pub CreateRunOptions: ::std::option::Option<_system!(unsafe fn(out: *mut *mut OrtRunOptions) -> OrtStatusPtr)>,
 	pub RunOptionsSetRunLogVerbosityLevel:
@@ -1129,9 +1131,9 @@ pub struct OrtApi {
 				shape: *const i64,
 				shape_len: size_t,
 				type_: ONNXTensorElementDataType,
-				out: *mut *mut OrtValue
+				out: *mut *mut OrtValue,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub CreateTensorWithDataAsOrtValue: ::std::option::Option<
 		_system!(
@@ -1142,9 +1144,9 @@ pub struct OrtApi {
 				shape: *const i64,
 				shape_len: size_t,
 				type_: ONNXTensorElementDataType,
-				out: *mut *mut OrtValue
+				out: *mut *mut OrtValue,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub IsTensor: ::std::option::Option<_system!(unsafe fn(value: *const OrtValue, out: *mut ::std::os::raw::c_int) -> OrtStatusPtr)>,
 	pub GetTensorMutableData: ::std::option::Option<_system!(unsafe fn(value: *mut OrtValue, out: *mut *mut ::std::os::raw::c_void) -> OrtStatusPtr)>,
@@ -1152,7 +1154,7 @@ pub struct OrtApi {
 		::std::option::Option<_system!(unsafe fn(value: *mut OrtValue, s: *const *const ::std::os::raw::c_char, s_len: size_t) -> OrtStatusPtr)>,
 	pub GetStringTensorDataLength: ::std::option::Option<_system!(unsafe fn(value: *const OrtValue, len: *mut size_t) -> OrtStatusPtr)>,
 	pub GetStringTensorContent: ::std::option::Option<
-		_system!(unsafe fn(value: *const OrtValue, s: *mut ::std::os::raw::c_void, s_len: size_t, offsets: *mut size_t, offsets_len: size_t) -> OrtStatusPtr)
+		_system!(unsafe fn(value: *const OrtValue, s: *mut ::std::os::raw::c_void, s_len: size_t, offsets: *mut size_t, offsets_len: size_t) -> OrtStatusPtr),
 	>,
 	pub CastTypeInfoToTensorInfo:
 		::std::option::Option<_system!(unsafe fn(type_info: *const OrtTypeInfo, out: *mut *const OrtTensorTypeAndShapeInfo) -> OrtStatusPtr)>,
@@ -1168,7 +1170,7 @@ pub struct OrtApi {
 	pub GetDimensions:
 		::std::option::Option<_system!(unsafe fn(info: *const OrtTensorTypeAndShapeInfo, dim_values: *mut i64, dim_values_length: size_t) -> OrtStatusPtr)>,
 	pub GetSymbolicDimensions: ::std::option::Option<
-		_system!(unsafe fn(info: *const OrtTensorTypeAndShapeInfo, dim_params: *mut *const ::std::os::raw::c_char, dim_params_length: size_t) -> OrtStatusPtr)
+		_system!(unsafe fn(info: *const OrtTensorTypeAndShapeInfo, dim_params: *mut *const ::std::os::raw::c_char, dim_params_length: size_t) -> OrtStatusPtr),
 	>,
 	pub GetTensorShapeElementCount: ::std::option::Option<_system!(unsafe fn(info: *const OrtTensorTypeAndShapeInfo, out: *mut size_t) -> OrtStatusPtr)>,
 	pub GetTensorTypeAndShape: ::std::option::Option<_system!(unsafe fn(value: *const OrtValue, out: *mut *mut OrtTensorTypeAndShapeInfo) -> OrtStatusPtr)>,
@@ -1181,9 +1183,9 @@ pub struct OrtApi {
 				type_: OrtAllocatorType,
 				id: ::std::os::raw::c_int,
 				mem_type: OrtMemType,
-				out: *mut *mut OrtMemoryInfo
+				out: *mut *mut OrtMemoryInfo,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub CreateCpuMemoryInfo:
 		::std::option::Option<_system!(unsafe fn(type_: OrtAllocatorType, mem_type: OrtMemType, out: *mut *mut OrtMemoryInfo) -> OrtStatusPtr)>,
@@ -1199,14 +1201,14 @@ pub struct OrtApi {
 	pub AllocatorGetInfo: ::std::option::Option<_system!(unsafe fn(ort_allocator: *const OrtAllocator, out: *mut *const OrtMemoryInfo) -> OrtStatusPtr)>,
 	pub GetAllocatorWithDefaultOptions: ::std::option::Option<_system!(unsafe fn(out: *mut *mut OrtAllocator) -> OrtStatusPtr)>,
 	pub AddFreeDimensionOverride: ::std::option::Option<
-		_system!(unsafe fn(options: *mut OrtSessionOptions, dim_denotation: *const ::std::os::raw::c_char, dim_value: i64) -> OrtStatusPtr)
+		_system!(unsafe fn(options: *mut OrtSessionOptions, dim_denotation: *const ::std::os::raw::c_char, dim_value: i64) -> OrtStatusPtr),
 	>,
 	pub GetValue: ::std::option::Option<
-		_system!(unsafe fn(value: *const OrtValue, index: ::std::os::raw::c_int, allocator: *mut OrtAllocator, out: *mut *mut OrtValue) -> OrtStatusPtr)
+		_system!(unsafe fn(value: *const OrtValue, index: ::std::os::raw::c_int, allocator: *mut OrtAllocator, out: *mut *mut OrtValue) -> OrtStatusPtr),
 	>,
 	pub GetValueCount: ::std::option::Option<_system!(unsafe fn(value: *const OrtValue, out: *mut size_t) -> OrtStatusPtr)>,
 	pub CreateValue: ::std::option::Option<
-		_system!(unsafe fn(in_: *const *const OrtValue, num_values: size_t, value_type: ONNXType, out: *mut *mut OrtValue) -> OrtStatusPtr)
+		_system!(unsafe fn(in_: *const *const OrtValue, num_values: size_t, value_type: ONNXType, out: *mut *mut OrtValue) -> OrtStatusPtr),
 	>,
 	pub CreateOpaqueValue: ::std::option::Option<
 		_system!(
@@ -1215,9 +1217,9 @@ pub struct OrtApi {
 				type_name: *const ::std::os::raw::c_char,
 				data_container: *const ::std::os::raw::c_void,
 				data_container_size: size_t,
-				out: *mut *mut OrtValue
+				out: *mut *mut OrtValue,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub GetOpaqueValue: ::std::option::Option<
 		_system!(
@@ -1226,9 +1228,9 @@ pub struct OrtApi {
 				type_name: *const ::std::os::raw::c_char,
 				in_: *const OrtValue,
 				data_container: *mut ::std::os::raw::c_void,
-				data_container_size: size_t
+				data_container_size: size_t,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub KernelInfoGetAttribute_float:
 		::std::option::Option<_system!(unsafe fn(info: *const OrtKernelInfo, name: *const ::std::os::raw::c_char, out: *mut f32) -> OrtStatusPtr)>,
@@ -1237,14 +1239,14 @@ pub struct OrtApi {
 	pub KernelInfoGetAttribute_string: ::std::option::Option<
 		_system!(
 			unsafe fn(info: *const OrtKernelInfo, name: *const ::std::os::raw::c_char, out: *mut ::std::os::raw::c_char, size: *mut size_t) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub KernelContext_GetInputCount: ::std::option::Option<_system!(unsafe fn(context: *const OrtKernelContext, out: *mut size_t) -> OrtStatusPtr)>,
 	pub KernelContext_GetOutputCount: ::std::option::Option<_system!(unsafe fn(context: *const OrtKernelContext, out: *mut size_t) -> OrtStatusPtr)>,
 	pub KernelContext_GetInput:
 		::std::option::Option<_system!(unsafe fn(context: *const OrtKernelContext, index: size_t, out: *mut *const OrtValue) -> OrtStatusPtr)>,
 	pub KernelContext_GetOutput: ::std::option::Option<
-		_system!(unsafe fn(context: *mut OrtKernelContext, index: size_t, dim_values: *const i64, dim_count: size_t, out: *mut *mut OrtValue) -> OrtStatusPtr)
+		_system!(unsafe fn(context: *mut OrtKernelContext, index: size_t, dim_values: *const i64, dim_count: size_t, out: *mut *mut OrtValue) -> OrtStatusPtr),
 	>,
 	pub ReleaseEnv: ::std::option::Option<_system!(unsafe fn(input: *mut OrtEnv))>,
 	pub ReleaseStatus: ::std::option::Option<_system!(unsafe fn(input: *mut OrtStatus))>,
@@ -1257,7 +1259,7 @@ pub struct OrtApi {
 	pub ReleaseSessionOptions: ::std::option::Option<_system!(unsafe fn(input: *mut OrtSessionOptions))>,
 	pub ReleaseCustomOpDomain: ::std::option::Option<_system!(unsafe fn(input: *mut OrtCustomOpDomain))>,
 	pub GetDenotationFromTypeInfo: ::std::option::Option<
-		_system!(unsafe fn(type_info: *const OrtTypeInfo, denotation: *mut *const ::std::os::raw::c_char, len: *mut size_t) -> OrtStatusPtr)
+		_system!(unsafe fn(type_info: *const OrtTypeInfo, denotation: *mut *const ::std::os::raw::c_char, len: *mut size_t) -> OrtStatusPtr),
 	>,
 	pub CastTypeInfoToMapTypeInfo: ::std::option::Option<_system!(unsafe fn(type_info: *const OrtTypeInfo, out: *mut *const OrtMapTypeInfo) -> OrtStatusPtr)>,
 	pub CastTypeInfoToSequenceTypeInfo:
@@ -1269,20 +1271,20 @@ pub struct OrtApi {
 	pub ReleaseMapTypeInfo: ::std::option::Option<_system!(unsafe fn(input: *mut OrtMapTypeInfo))>,
 	pub ReleaseSequenceTypeInfo: ::std::option::Option<_system!(unsafe fn(input: *mut OrtSequenceTypeInfo))>,
 	pub SessionEndProfiling: ::std::option::Option<
-		_system!(unsafe fn(session: *mut OrtSession, allocator: *mut OrtAllocator, out: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr)
+		_system!(unsafe fn(session: *mut OrtSession, allocator: *mut OrtAllocator, out: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr),
 	>,
 	pub SessionGetModelMetadata: ::std::option::Option<_system!(unsafe fn(session: *const OrtSession, out: *mut *mut OrtModelMetadata) -> OrtStatusPtr)>,
 	pub ModelMetadataGetProducerName: ::std::option::Option<
-		_system!(unsafe fn(model_metadata: *const OrtModelMetadata, allocator: *mut OrtAllocator, value: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr)
+		_system!(unsafe fn(model_metadata: *const OrtModelMetadata, allocator: *mut OrtAllocator, value: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr),
 	>,
 	pub ModelMetadataGetGraphName: ::std::option::Option<
-		_system!(unsafe fn(model_metadata: *const OrtModelMetadata, allocator: *mut OrtAllocator, value: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr)
+		_system!(unsafe fn(model_metadata: *const OrtModelMetadata, allocator: *mut OrtAllocator, value: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr),
 	>,
 	pub ModelMetadataGetDomain: ::std::option::Option<
-		_system!(unsafe fn(model_metadata: *const OrtModelMetadata, allocator: *mut OrtAllocator, value: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr)
+		_system!(unsafe fn(model_metadata: *const OrtModelMetadata, allocator: *mut OrtAllocator, value: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr),
 	>,
 	pub ModelMetadataGetDescription: ::std::option::Option<
-		_system!(unsafe fn(model_metadata: *const OrtModelMetadata, allocator: *mut OrtAllocator, value: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr)
+		_system!(unsafe fn(model_metadata: *const OrtModelMetadata, allocator: *mut OrtAllocator, value: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr),
 	>,
 	pub ModelMetadataLookupCustomMetadataMap: ::std::option::Option<
 		_system!(
@@ -1290,9 +1292,9 @@ pub struct OrtApi {
 				model_metadata: *const OrtModelMetadata,
 				allocator: *mut OrtAllocator,
 				key: *const ::std::os::raw::c_char,
-				value: *mut *mut ::std::os::raw::c_char
+				value: *mut *mut ::std::os::raw::c_char,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub ModelMetadataGetVersion: ::std::option::Option<_system!(unsafe fn(model_metadata: *const OrtModelMetadata, value: *mut i64) -> OrtStatusPtr)>,
 	pub ReleaseModelMetadata: ::std::option::Option<_system!(unsafe fn(input: *mut OrtModelMetadata))>,
@@ -1302,9 +1304,9 @@ pub struct OrtApi {
 				log_severity_level: OrtLoggingLevel,
 				logid: *const ::std::os::raw::c_char,
 				tp_options: *const OrtThreadingOptions,
-				out: *mut *mut OrtEnv
+				out: *mut *mut OrtEnv,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub DisablePerSessionThreads: ::std::option::Option<_system!(unsafe fn(options: *mut OrtSessionOptions) -> OrtStatusPtr)>,
 	pub CreateThreadingOptions: ::std::option::Option<_system!(unsafe fn(out: *mut *mut OrtThreadingOptions) -> OrtStatusPtr)>,
@@ -1315,9 +1317,9 @@ pub struct OrtApi {
 				model_metadata: *const OrtModelMetadata,
 				allocator: *mut OrtAllocator,
 				keys: *mut *mut *mut ::std::os::raw::c_char,
-				num_keys: *mut i64
+				num_keys: *mut i64,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub AddFreeDimensionOverrideByName:
 		::std::option::Option<_system!(unsafe fn(options: *mut OrtSessionOptions, dim_name: *const ::std::os::raw::c_char, dim_value: i64) -> OrtStatusPtr)>,
@@ -1333,24 +1335,24 @@ pub struct OrtApi {
 	pub AddSessionConfigEntry: ::std::option::Option<
 		_system!(
 			unsafe fn(options: *mut OrtSessionOptions, config_key: *const ::std::os::raw::c_char, config_value: *const ::std::os::raw::c_char) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub CreateAllocator:
 		::std::option::Option<_system!(unsafe fn(session: *const OrtSession, mem_info: *const OrtMemoryInfo, out: *mut *mut OrtAllocator) -> OrtStatusPtr)>,
 	pub ReleaseAllocator: ::std::option::Option<_system!(unsafe fn(input: *mut OrtAllocator))>,
 	pub RunWithBinding: ::std::option::Option<
-		_system!(unsafe fn(session: *mut OrtSession, run_options: *const OrtRunOptions, binding_ptr: *const OrtIoBinding) -> OrtStatusPtr)
+		_system!(unsafe fn(session: *mut OrtSession, run_options: *const OrtRunOptions, binding_ptr: *const OrtIoBinding) -> OrtStatusPtr),
 	>,
 	pub CreateIoBinding: ::std::option::Option<_system!(unsafe fn(session: *mut OrtSession, out: *mut *mut OrtIoBinding) -> OrtStatusPtr)>,
 	pub ReleaseIoBinding: ::std::option::Option<_system!(unsafe fn(input: *mut OrtIoBinding))>,
 	pub BindInput: ::std::option::Option<
-		_system!(unsafe fn(binding_ptr: *mut OrtIoBinding, name: *const ::std::os::raw::c_char, val_ptr: *const OrtValue) -> OrtStatusPtr)
+		_system!(unsafe fn(binding_ptr: *mut OrtIoBinding, name: *const ::std::os::raw::c_char, val_ptr: *const OrtValue) -> OrtStatusPtr),
 	>,
 	pub BindOutput: ::std::option::Option<
-		_system!(unsafe fn(binding_ptr: *mut OrtIoBinding, name: *const ::std::os::raw::c_char, val_ptr: *const OrtValue) -> OrtStatusPtr)
+		_system!(unsafe fn(binding_ptr: *mut OrtIoBinding, name: *const ::std::os::raw::c_char, val_ptr: *const OrtValue) -> OrtStatusPtr),
 	>,
 	pub BindOutputToDevice: ::std::option::Option<
-		_system!(unsafe fn(binding_ptr: *mut OrtIoBinding, name: *const ::std::os::raw::c_char, mem_info_ptr: *const OrtMemoryInfo) -> OrtStatusPtr)
+		_system!(unsafe fn(binding_ptr: *mut OrtIoBinding, name: *const ::std::os::raw::c_char, mem_info_ptr: *const OrtMemoryInfo) -> OrtStatusPtr),
 	>,
 	pub GetBoundOutputNames: ::std::option::Option<
 		_system!(
@@ -1359,9 +1361,9 @@ pub struct OrtApi {
 				allocator: *mut OrtAllocator,
 				buffer: *mut *mut ::std::os::raw::c_char,
 				lengths: *mut *mut size_t,
-				count: *mut size_t
+				count: *mut size_t,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub GetBoundOutputValues: ::std::option::Option<
 		_system!(
@@ -1369,9 +1371,9 @@ pub struct OrtApi {
 				binding_ptr: *const OrtIoBinding,
 				allocator: *mut OrtAllocator,
 				output: *mut *mut *mut OrtValue,
-				output_count: *mut size_t
+				output_count: *mut size_t,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	#[doc = " \\brief Clears any previously set Inputs for an ::OrtIoBinding"]
 	pub ClearBoundInputs: ::std::option::Option<_system!(unsafe fn(binding_ptr: *mut OrtIoBinding))>,
@@ -1380,7 +1382,7 @@ pub struct OrtApi {
 	pub TensorAt: ::std::option::Option<
 		_system!(
 			unsafe fn(value: *mut OrtValue, location_values: *const i64, location_values_count: size_t, out: *mut *mut ::std::os::raw::c_void) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub CreateAndRegisterAllocator:
 		::std::option::Option<_system!(unsafe fn(env: *mut OrtEnv, mem_info: *const OrtMemoryInfo, arena_cfg: *const OrtArenaCfg) -> OrtStatusPtr)>,
@@ -1402,9 +1404,9 @@ pub struct OrtApi {
 				log_severity_level: OrtLoggingLevel,
 				logid: *const ::std::os::raw::c_char,
 				tp_options: *const OrtThreadingOptions,
-				out: *mut *mut OrtEnv
+				out: *mut *mut OrtEnv,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub SessionOptionsAppendExecutionProvider_CUDA:
 		::std::option::Option<_system!(unsafe fn(options: *mut OrtSessionOptions, cuda_options: *const OrtCUDAProviderOptions) -> OrtStatusPtr)>,
@@ -1420,23 +1422,23 @@ pub struct OrtApi {
 				arena_extend_strategy: ::std::os::raw::c_int,
 				initial_chunk_size_bytes: ::std::os::raw::c_int,
 				max_dead_bytes_per_chunk: ::std::os::raw::c_int,
-				out: *mut *mut OrtArenaCfg
+				out: *mut *mut OrtArenaCfg,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub ReleaseArenaCfg: ::std::option::Option<_system!(unsafe fn(input: *mut OrtArenaCfg))>,
 	pub ModelMetadataGetGraphDescription: ::std::option::Option<
-		_system!(unsafe fn(model_metadata: *const OrtModelMetadata, allocator: *mut OrtAllocator, value: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr)
+		_system!(unsafe fn(model_metadata: *const OrtModelMetadata, allocator: *mut OrtAllocator, value: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr),
 	>,
 	pub SessionOptionsAppendExecutionProvider_TensorRT:
 		::std::option::Option<_system!(unsafe fn(options: *mut OrtSessionOptions, tensorrt_options: *const OrtTensorRTProviderOptions) -> OrtStatusPtr)>,
 	pub SetCurrentGpuDeviceId: ::std::option::Option<_system!(unsafe fn(device_id: ::std::os::raw::c_int) -> OrtStatusPtr)>,
 	pub GetCurrentGpuDeviceId: ::std::option::Option<_system!(unsafe fn(device_id: *mut ::std::os::raw::c_int) -> OrtStatusPtr)>,
 	pub KernelInfoGetAttributeArray_float: ::std::option::Option<
-		_system!(unsafe fn(info: *const OrtKernelInfo, name: *const ::std::os::raw::c_char, out: *mut f32, size: *mut size_t) -> OrtStatusPtr)
+		_system!(unsafe fn(info: *const OrtKernelInfo, name: *const ::std::os::raw::c_char, out: *mut f32, size: *mut size_t) -> OrtStatusPtr),
 	>,
 	pub KernelInfoGetAttributeArray_int64: ::std::option::Option<
-		_system!(unsafe fn(info: *const OrtKernelInfo, name: *const ::std::os::raw::c_char, out: *mut i64, size: *mut size_t) -> OrtStatusPtr)
+		_system!(unsafe fn(info: *const OrtKernelInfo, name: *const ::std::os::raw::c_char, out: *mut i64, size: *mut size_t) -> OrtStatusPtr),
 	>,
 	pub CreateArenaCfgV2: ::std::option::Option<
 		_system!(
@@ -1444,14 +1446,14 @@ pub struct OrtApi {
 				arena_config_keys: *const *const ::std::os::raw::c_char,
 				arena_config_values: *const size_t,
 				num_keys: size_t,
-				out: *mut *mut OrtArenaCfg
+				out: *mut *mut OrtArenaCfg,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub AddRunConfigEntry: ::std::option::Option<
 		_system!(
 			unsafe fn(options: *mut OrtRunOptions, config_key: *const ::std::os::raw::c_char, config_value: *const ::std::os::raw::c_char) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub CreatePrepackedWeightsContainer: ::std::option::Option<_system!(unsafe fn(out: *mut *mut OrtPrepackedWeightsContainer) -> OrtStatusPtr)>,
 	pub ReleasePrepackedWeightsContainer: ::std::option::Option<_system!(unsafe fn(input: *mut OrtPrepackedWeightsContainer))>,
@@ -1462,9 +1464,9 @@ pub struct OrtApi {
 				model_path: *const ortchar,
 				options: *const OrtSessionOptions,
 				prepacked_weights_container: *mut OrtPrepackedWeightsContainer,
-				out: *mut *mut OrtSession
+				out: *mut *mut OrtSession,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub CreateSessionFromArrayWithPrepackedWeightsContainer: ::std::option::Option<
 		_system!(
@@ -1474,9 +1476,9 @@ pub struct OrtApi {
 				model_data_length: size_t,
 				options: *const OrtSessionOptions,
 				prepacked_weights_container: *mut OrtPrepackedWeightsContainer,
-				out: *mut *mut OrtSession
+				out: *mut *mut OrtSession,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub SessionOptionsAppendExecutionProvider_TensorRT_V2:
 		::std::option::Option<_system!(unsafe fn(options: *mut OrtSessionOptions, tensorrt_options: *const OrtTensorRTProviderOptionsV2) -> OrtStatusPtr)>,
@@ -1487,18 +1489,18 @@ pub struct OrtApi {
 				tensorrt_options: *mut OrtTensorRTProviderOptionsV2,
 				provider_options_keys: *const *const ::std::os::raw::c_char,
 				provider_options_values: *const *const ::std::os::raw::c_char,
-				num_keys: size_t
+				num_keys: size_t,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub GetTensorRTProviderOptionsAsString: ::std::option::Option<
 		_system!(
 			unsafe fn(
 				tensorrt_options: *const OrtTensorRTProviderOptionsV2,
 				allocator: *mut OrtAllocator,
-				ptr: *mut *mut ::std::os::raw::c_char
+				ptr: *mut *mut ::std::os::raw::c_char,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	#[doc = " \\brief Release an ::OrtTensorRTProviderOptionsV2\n\n \\note This is an exception in the naming convention of other Release* functions, as the name of the method does not have the V2 suffix, but the type does"]
 	pub ReleaseTensorRTProviderOptions: ::std::option::Option<_system!(unsafe fn(input: *mut OrtTensorRTProviderOptionsV2))>,
@@ -1513,9 +1515,9 @@ pub struct OrtApi {
 				dense_shape: *const i64,
 				dense_shape_len: size_t,
 				type_: ONNXTensorElementDataType,
-				out: *mut *mut OrtValue
+				out: *mut *mut OrtValue,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub FillSparseTensorCoo: ::std::option::Option<
 		_system!(
@@ -1526,9 +1528,9 @@ pub struct OrtApi {
 				values_shape_len: size_t,
 				values: *const ::std::os::raw::c_void,
 				indices_data: *const i64,
-				indices_num: size_t
+				indices_num: size_t,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub FillSparseTensorCsr: ::std::option::Option<
 		_system!(
@@ -1541,9 +1543,9 @@ pub struct OrtApi {
 				inner_indices_data: *const i64,
 				inner_indices_num: size_t,
 				outer_indices_data: *const i64,
-				outer_indices_num: size_t
+				outer_indices_num: size_t,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub FillSparseTensorBlockSparse: ::std::option::Option<
 		_system!(
@@ -1555,9 +1557,9 @@ pub struct OrtApi {
 				values: *const ::std::os::raw::c_void,
 				indices_shape_data: *const i64,
 				indices_shape_len: size_t,
-				indices_data: *const i32
+				indices_data: *const i32,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub CreateSparseTensorWithValuesAsOrtValue: ::std::option::Option<
 		_system!(
@@ -1569,23 +1571,23 @@ pub struct OrtApi {
 				values_shape: *const i64,
 				values_shape_len: size_t,
 				type_: ONNXTensorElementDataType,
-				out: *mut *mut OrtValue
+				out: *mut *mut OrtValue,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub UseCooIndices: ::std::option::Option<_system!(unsafe fn(ort_value: *mut OrtValue, indices_data: *mut i64, indices_num: size_t) -> OrtStatusPtr)>,
 	pub UseCsrIndices: ::std::option::Option<
-		_system!(unsafe fn(ort_value: *mut OrtValue, inner_data: *mut i64, inner_num: size_t, outer_data: *mut i64, outer_num: size_t) -> OrtStatusPtr)
+		_system!(unsafe fn(ort_value: *mut OrtValue, inner_data: *mut i64, inner_num: size_t, outer_data: *mut i64, outer_num: size_t) -> OrtStatusPtr),
 	>,
 	pub UseBlockSparseIndices: ::std::option::Option<
-		_system!(unsafe fn(ort_value: *mut OrtValue, indices_shape: *const i64, indices_shape_len: size_t, indices_data: *mut i32) -> OrtStatusPtr)
+		_system!(unsafe fn(ort_value: *mut OrtValue, indices_shape: *const i64, indices_shape_len: size_t, indices_data: *mut i32) -> OrtStatusPtr),
 	>,
 	pub GetSparseTensorFormat: ::std::option::Option<_system!(unsafe fn(ort_value: *const OrtValue, out: *mut OrtSparseFormat) -> OrtStatusPtr)>,
 	pub GetSparseTensorValuesTypeAndShape:
 		::std::option::Option<_system!(unsafe fn(ort_value: *const OrtValue, out: *mut *mut OrtTensorTypeAndShapeInfo) -> OrtStatusPtr)>,
 	pub GetSparseTensorValues: ::std::option::Option<_system!(unsafe fn(ort_value: *const OrtValue, out: *mut *const ::std::os::raw::c_void) -> OrtStatusPtr)>,
 	pub GetSparseTensorIndicesTypeShape: ::std::option::Option<
-		_system!(unsafe fn(ort_value: *const OrtValue, indices_format: OrtSparseIndicesFormat, out: *mut *mut OrtTensorTypeAndShapeInfo) -> OrtStatusPtr)
+		_system!(unsafe fn(ort_value: *const OrtValue, indices_format: OrtSparseIndicesFormat, out: *mut *mut OrtTensorTypeAndShapeInfo) -> OrtStatusPtr),
 	>,
 	pub GetSparseTensorIndices: ::std::option::Option<
 		_system!(
@@ -1593,28 +1595,28 @@ pub struct OrtApi {
 				ort_value: *const OrtValue,
 				indices_format: OrtSparseIndicesFormat,
 				num_indices: *mut size_t,
-				indices: *mut *const ::std::os::raw::c_void
+				indices: *mut *const ::std::os::raw::c_void,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub HasValue: ::std::option::Option<_system!(unsafe fn(value: *const OrtValue, out: *mut ::std::os::raw::c_int) -> OrtStatusPtr)>,
 	pub KernelContext_GetGPUComputeStream:
 		::std::option::Option<_system!(unsafe fn(context: *const OrtKernelContext, out: *mut *mut ::std::os::raw::c_void) -> OrtStatusPtr)>,
 	pub GetTensorMemoryInfo: ::std::option::Option<_system!(unsafe fn(value: *const OrtValue, mem_info: *mut *const OrtMemoryInfo) -> OrtStatusPtr)>,
 	pub GetExecutionProviderApi: ::std::option::Option<
-		_system!(unsafe fn(provider_name: *const ::std::os::raw::c_char, version: u32, provider_api: *mut *const ::std::os::raw::c_void) -> OrtStatusPtr)
+		_system!(unsafe fn(provider_name: *const ::std::os::raw::c_char, version: u32, provider_api: *mut *const ::std::os::raw::c_void) -> OrtStatusPtr),
 	>,
 	pub SessionOptionsSetCustomCreateThreadFn:
 		::std::option::Option<_system!(unsafe fn(options: *mut OrtSessionOptions, ort_custom_create_thread_fn: OrtCustomCreateThreadFn) -> OrtStatusPtr)>,
 	pub SessionOptionsSetCustomThreadCreationOptions: ::std::option::Option<
-		_system!(unsafe fn(options: *mut OrtSessionOptions, ort_custom_thread_creation_options: *mut ::std::os::raw::c_void) -> OrtStatusPtr)
+		_system!(unsafe fn(options: *mut OrtSessionOptions, ort_custom_thread_creation_options: *mut ::std::os::raw::c_void) -> OrtStatusPtr),
 	>,
 	pub SessionOptionsSetCustomJoinThreadFn:
 		::std::option::Option<_system!(unsafe fn(options: *mut OrtSessionOptions, ort_custom_join_thread_fn: OrtCustomJoinThreadFn) -> OrtStatusPtr)>,
 	pub SetGlobalCustomCreateThreadFn:
 		::std::option::Option<_system!(unsafe fn(tp_options: *mut OrtThreadingOptions, ort_custom_create_thread_fn: OrtCustomCreateThreadFn) -> OrtStatusPtr)>,
 	pub SetGlobalCustomThreadCreationOptions: ::std::option::Option<
-		_system!(unsafe fn(tp_options: *mut OrtThreadingOptions, ort_custom_thread_creation_options: *mut ::std::os::raw::c_void) -> OrtStatusPtr)
+		_system!(unsafe fn(tp_options: *mut OrtThreadingOptions, ort_custom_thread_creation_options: *mut ::std::os::raw::c_void) -> OrtStatusPtr),
 	>,
 	pub SetGlobalCustomJoinThreadFn:
 		::std::option::Option<_system!(unsafe fn(tp_options: *mut OrtThreadingOptions, ort_custom_join_thread_fn: OrtCustomJoinThreadFn) -> OrtStatusPtr)>,
@@ -1629,12 +1631,12 @@ pub struct OrtApi {
 				cuda_options: *mut OrtCUDAProviderOptionsV2,
 				provider_options_keys: *const *const ::std::os::raw::c_char,
 				provider_options_values: *const *const ::std::os::raw::c_char,
-				num_keys: size_t
+				num_keys: size_t,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub GetCUDAProviderOptionsAsString: ::std::option::Option<
-		_system!(unsafe fn(cuda_options: *const OrtCUDAProviderOptionsV2, allocator: *mut OrtAllocator, ptr: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr)
+		_system!(unsafe fn(cuda_options: *const OrtCUDAProviderOptionsV2, allocator: *mut OrtAllocator, ptr: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr),
 	>,
 	#[doc = " \\brief Release an ::OrtCUDAProviderOptionsV2\n\n \\note This is an exception in the naming convention of other Release* functions, as the name of the method does not have the V2 suffix, but the type does\n\n \\since Version 1.11."]
 	pub ReleaseCUDAProviderOptions: ::std::option::Option<_system!(unsafe fn(input: *mut OrtCUDAProviderOptionsV2))>,
@@ -1646,9 +1648,9 @@ pub struct OrtApi {
 				options: *mut OrtSessionOptions,
 				initializer_names: *const *const ::std::os::raw::c_char,
 				initializers: *const *const OrtValue,
-				initializers_num: size_t
+				initializers_num: size_t,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub CreateOpAttr: ::std::option::Option<
 		_system!(
@@ -1657,9 +1659,9 @@ pub struct OrtApi {
 				data: *const ::std::os::raw::c_void,
 				len: ::std::os::raw::c_int,
 				type_: OrtOpAttrType,
-				op_attr: *mut *mut OrtOpAttr
+				op_attr: *mut *mut OrtOpAttr,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub ReleaseOpAttr: ::std::option::Option<_system!(unsafe fn(input: *mut OrtOpAttr))>,
 	pub CreateOp: ::std::option::Option<
@@ -1676,9 +1678,9 @@ pub struct OrtApi {
 				attr_count: ::std::os::raw::c_int,
 				input_count: ::std::os::raw::c_int,
 				output_count: ::std::os::raw::c_int,
-				ort_op: *mut *mut OrtOp
+				ort_op: *mut *mut OrtOp,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub InvokeOp: ::std::option::Option<
 		_system!(
@@ -1688,9 +1690,9 @@ pub struct OrtApi {
 				input_values: *const *const OrtValue,
 				input_count: ::std::os::raw::c_int,
 				output_values: *const *mut OrtValue,
-				output_count: ::std::os::raw::c_int
+				output_count: ::std::os::raw::c_int,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub ReleaseOp: ::std::option::Option<_system!(unsafe fn(input: *mut OrtOp))>,
 	pub SessionOptionsAppendExecutionProvider: ::std::option::Option<
@@ -1700,9 +1702,9 @@ pub struct OrtApi {
 				provider_name: *const ::std::os::raw::c_char,
 				provider_options_keys: *const *const ::std::os::raw::c_char,
 				provider_options_values: *const *const ::std::os::raw::c_char,
-				num_keys: size_t
+				num_keys: size_t,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub CopyKernelInfo: ::std::option::Option<_system!(unsafe fn(info: *const OrtKernelInfo, info_copy: *mut *mut OrtKernelInfo) -> OrtStatusPtr)>,
 	pub ReleaseKernelInfo: ::std::option::Option<_system!(unsafe fn(input: *mut OrtKernelInfo))>,
@@ -1717,12 +1719,12 @@ pub struct OrtApi {
 				cann_options: *mut OrtCANNProviderOptions,
 				provider_options_keys: *const *const ::std::os::raw::c_char,
 				provider_options_values: *const *const ::std::os::raw::c_char,
-				num_keys: size_t
+				num_keys: size_t,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub GetCANNProviderOptionsAsString: ::std::option::Option<
-		_system!(unsafe fn(cann_options: *const OrtCANNProviderOptions, allocator: *mut OrtAllocator, ptr: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr)
+		_system!(unsafe fn(cann_options: *const OrtCANNProviderOptions, allocator: *mut OrtAllocator, ptr: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr),
 	>,
 	#[doc = " \\brief Release an OrtCANNProviderOptions\n\n \\param[in] the pointer of OrtCANNProviderOptions which will been deleted\n\n \\since Version 1.13."]
 	pub ReleaseCANNProviderOptions: ::std::option::Option<_system!(unsafe fn(input: *mut OrtCANNProviderOptions))>,
@@ -1736,10 +1738,10 @@ pub struct OrtApi {
 	pub KernelInfo_GetInputCount: ::std::option::Option<_system!(unsafe fn(info: *const OrtKernelInfo, out: *mut size_t) -> OrtStatusPtr)>,
 	pub KernelInfo_GetOutputCount: ::std::option::Option<_system!(unsafe fn(info: *const OrtKernelInfo, out: *mut size_t) -> OrtStatusPtr)>,
 	pub KernelInfo_GetInputName: ::std::option::Option<
-		_system!(unsafe fn(info: *const OrtKernelInfo, index: size_t, out: *mut ::std::os::raw::c_char, size: *mut size_t) -> OrtStatusPtr)
+		_system!(unsafe fn(info: *const OrtKernelInfo, index: size_t, out: *mut ::std::os::raw::c_char, size: *mut size_t) -> OrtStatusPtr),
 	>,
 	pub KernelInfo_GetOutputName: ::std::option::Option<
-		_system!(unsafe fn(info: *const OrtKernelInfo, index: size_t, out: *mut ::std::os::raw::c_char, size: *mut size_t) -> OrtStatusPtr)
+		_system!(unsafe fn(info: *const OrtKernelInfo, index: size_t, out: *mut ::std::os::raw::c_char, size: *mut size_t) -> OrtStatusPtr),
 	>,
 	pub KernelInfo_GetInputTypeInfo:
 		::std::option::Option<_system!(unsafe fn(info: *const OrtKernelInfo, index: size_t, type_info: *mut *mut OrtTypeInfo) -> OrtStatusPtr)>,
@@ -1748,10 +1750,10 @@ pub struct OrtApi {
 	pub KernelInfoGetAttribute_tensor: ::std::option::Option<
 		_system!(
 			unsafe fn(info: *const OrtKernelInfo, name: *const ::std::os::raw::c_char, allocator: *mut OrtAllocator, out: *mut *mut OrtValue) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub HasSessionConfigEntry: ::std::option::Option<
-		_system!(unsafe fn(options: *const OrtSessionOptions, config_key: *const ::std::os::raw::c_char, out: *mut ::std::os::raw::c_int) -> OrtStatusPtr)
+		_system!(unsafe fn(options: *const OrtSessionOptions, config_key: *const ::std::os::raw::c_char, out: *mut ::std::os::raw::c_int) -> OrtStatusPtr),
 	>,
 	pub GetSessionConfigEntry: ::std::option::Option<
 		_system!(
@@ -1759,9 +1761,9 @@ pub struct OrtApi {
 				options: *const OrtSessionOptions,
 				config_key: *const ::std::os::raw::c_char,
 				config_value: *mut ::std::os::raw::c_char,
-				size: *mut size_t
+				size: *mut size_t,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub SessionOptionsAppendExecutionProvider_Dnnl:
 		::std::option::Option<_system!(unsafe fn(options: *mut OrtSessionOptions, dnnl_options: *const OrtDnnlProviderOptions) -> OrtStatusPtr)>,
@@ -1772,12 +1774,12 @@ pub struct OrtApi {
 				dnnl_options: *mut OrtDnnlProviderOptions,
 				provider_options_keys: *const *const ::std::os::raw::c_char,
 				provider_options_values: *const *const ::std::os::raw::c_char,
-				num_keys: size_t
+				num_keys: size_t,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub GetDnnlProviderOptionsAsString: ::std::option::Option<
-		_system!(unsafe fn(dnnl_options: *const OrtDnnlProviderOptions, allocator: *mut OrtAllocator, ptr: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr)
+		_system!(unsafe fn(dnnl_options: *const OrtDnnlProviderOptions, allocator: *mut OrtAllocator, ptr: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr),
 	>,
 	#[doc = " \\brief Release an ::OrtDnnlProviderOptions\n\n \\since Version 1.15."]
 	pub ReleaseDnnlProviderOptions: ::std::option::Option<_system!(unsafe fn(input: *mut OrtDnnlProviderOptions))>,
@@ -1793,23 +1795,23 @@ pub struct OrtApi {
 				message: *const ::std::os::raw::c_char,
 				file_path: *const ortchar,
 				line_number: ::std::os::raw::c_int,
-				func_name: *const ::std::os::raw::c_char
+				func_name: *const ::std::os::raw::c_char,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub Logger_GetLoggingSeverityLevel: ::std::option::Option<_system!(unsafe fn(logger: *const OrtLogger, out: *mut OrtLoggingLevel) -> OrtStatusPtr)>,
 	pub KernelInfoGetConstantInput_tensor: ::std::option::Option<
-		_system!(unsafe fn(info: *const OrtKernelInfo, index: size_t, is_constant: *mut ::std::os::raw::c_int, out: *mut *const OrtValue) -> OrtStatusPtr)
+		_system!(unsafe fn(info: *const OrtKernelInfo, index: size_t, is_constant: *mut ::std::os::raw::c_int, out: *mut *const OrtValue) -> OrtStatusPtr),
 	>,
 	pub CastTypeInfoToOptionalTypeInfo:
 		::std::option::Option<_system!(unsafe fn(type_info: *const OrtTypeInfo, out: *mut *const OrtOptionalTypeInfo) -> OrtStatusPtr)>,
 	pub GetOptionalContainedTypeInfo:
 		::std::option::Option<_system!(unsafe fn(optional_type_info: *const OrtOptionalTypeInfo, out: *mut *mut OrtTypeInfo) -> OrtStatusPtr)>,
 	pub GetResizedStringTensorElementBuffer: ::std::option::Option<
-		_system!(unsafe fn(value: *mut OrtValue, index: size_t, length_in_bytes: size_t, buffer: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr)
+		_system!(unsafe fn(value: *mut OrtValue, index: size_t, length_in_bytes: size_t, buffer: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr),
 	>,
 	pub KernelContext_GetAllocator: ::std::option::Option<
-		_system!(unsafe fn(context: *const OrtKernelContext, mem_info: *const OrtMemoryInfo, out: *mut *mut OrtAllocator) -> OrtStatusPtr)
+		_system!(unsafe fn(context: *const OrtKernelContext, mem_info: *const OrtMemoryInfo, out: *mut *mut OrtAllocator) -> OrtStatusPtr),
 	>,
 	#[doc = " \\brief Returns a null terminated string of the build info including git info and cxx flags\n\n \\return UTF-8 encoded version string. Do not deallocate the returned buffer.\n\n \\since Version 1.15."]
 	pub GetBuildInfoString: ::std::option::Option<_system!(unsafe fn() -> *const ::std::os::raw::c_char)>,
@@ -1820,12 +1822,12 @@ pub struct OrtApi {
 				rocm_options: *mut OrtROCMProviderOptions,
 				provider_options_keys: *const *const ::std::os::raw::c_char,
 				provider_options_values: *const *const ::std::os::raw::c_char,
-				num_keys: size_t
+				num_keys: size_t,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub GetROCMProviderOptionsAsString: ::std::option::Option<
-		_system!(unsafe fn(rocm_options: *const OrtROCMProviderOptions, allocator: *mut OrtAllocator, ptr: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr)
+		_system!(unsafe fn(rocm_options: *const OrtROCMProviderOptions, allocator: *mut OrtAllocator, ptr: *mut *mut ::std::os::raw::c_char) -> OrtStatusPtr),
 	>,
 	#[doc = " \\brief Release an ::OrtROCMProviderOptions\n\n \\note This is an exception in the naming convention of other Release* functions, as the name of the method does not have the V2 suffix, but the type does\n\n \\since Version 1.16."]
 	pub ReleaseROCMProviderOptions: ::std::option::Option<_system!(unsafe fn(input: *mut OrtROCMProviderOptions))>,
@@ -1838,9 +1840,9 @@ pub struct OrtApi {
 				arena_cfg: *const OrtArenaCfg,
 				provider_options_keys: *const *const ::std::os::raw::c_char,
 				provider_options_values: *const *const ::std::os::raw::c_char,
-				num_keys: size_t
+				num_keys: size_t,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub RunAsync: ::std::option::Option<
 		_system!(
@@ -1854,37 +1856,37 @@ pub struct OrtApi {
 				output_names_len: size_t,
 				output: *mut *mut OrtValue,
 				run_async_callback: RunAsyncCallbackFn,
-				user_data: *mut ::std::os::raw::c_void
+				user_data: *mut ::std::os::raw::c_void,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub UpdateTensorRTProviderOptionsWithValue: ::std::option::Option<
 		_system!(
 			unsafe fn(
 				tensorrt_options: *mut OrtTensorRTProviderOptionsV2,
 				key: *const ::std::os::raw::c_char,
-				value: *mut ::std::os::raw::c_void
+				value: *mut ::std::os::raw::c_void,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub GetTensorRTProviderOptionsByName: ::std::option::Option<
 		_system!(
 			unsafe fn(
 				tensorrt_options: *const OrtTensorRTProviderOptionsV2,
 				key: *const ::std::os::raw::c_char,
-				ptr: *mut *mut ::std::os::raw::c_void
+				ptr: *mut *mut ::std::os::raw::c_void,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub UpdateCUDAProviderOptionsWithValue: ::std::option::Option<
 		_system!(
 			unsafe fn(cuda_options: *mut OrtCUDAProviderOptionsV2, key: *const ::std::os::raw::c_char, value: *mut ::std::os::raw::c_void) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub GetCUDAProviderOptionsByName: ::std::option::Option<
 		_system!(
 			unsafe fn(cuda_options: *const OrtCUDAProviderOptionsV2, key: *const ::std::os::raw::c_char, ptr: *mut *mut ::std::os::raw::c_void) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub KernelContext_GetResource: ::std::option::Option<
 		_system!(
@@ -1892,33 +1894,33 @@ pub struct OrtApi {
 				context: *const OrtKernelContext,
 				resouce_version: ::std::os::raw::c_int,
 				resource_id: ::std::os::raw::c_int,
-				resource: *mut *mut ::std::os::raw::c_void
+				resource: *mut *mut ::std::os::raw::c_void,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub SetUserLoggingFunction: ::std::option::Option<
 		_system!(
 			unsafe fn(
 				options: *mut OrtSessionOptions,
 				user_logging_function: OrtLoggingFunction,
-				user_logging_param: *mut ::std::os::raw::c_void
+				user_logging_param: *mut ::std::os::raw::c_void,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub ShapeInferContext_GetInputCount: ::std::option::Option<_system!(unsafe fn(context: *const OrtShapeInferContext, out: *mut size_t) -> OrtStatusPtr)>,
 	pub ShapeInferContext_GetInputTypeShape: ::std::option::Option<
-		_system!(unsafe fn(context: *const OrtShapeInferContext, index: size_t, info: *mut *mut OrtTensorTypeAndShapeInfo) -> OrtStatusPtr)
+		_system!(unsafe fn(context: *const OrtShapeInferContext, index: size_t, info: *mut *mut OrtTensorTypeAndShapeInfo) -> OrtStatusPtr),
 	>,
 	pub ShapeInferContext_GetAttribute: ::std::option::Option<
-		_system!(unsafe fn(context: *const OrtShapeInferContext, attr_name: *const ::std::os::raw::c_char, attr: *mut *const OrtOpAttr) -> OrtStatusPtr)
+		_system!(unsafe fn(context: *const OrtShapeInferContext, attr_name: *const ::std::os::raw::c_char, attr: *mut *const OrtOpAttr) -> OrtStatusPtr),
 	>,
 	pub ShapeInferContext_SetOutputTypeShape:
 		::std::option::Option<_system!(unsafe fn(context: *const OrtShapeInferContext, index: size_t, info: *const OrtTensorTypeAndShapeInfo) -> OrtStatusPtr)>,
 	pub SetSymbolicDimensions: ::std::option::Option<
-		_system!(unsafe fn(info: *mut OrtTensorTypeAndShapeInfo, dim_params: *mut *const ::std::os::raw::c_char, dim_params_length: size_t) -> OrtStatusPtr)
+		_system!(unsafe fn(info: *mut OrtTensorTypeAndShapeInfo, dim_params: *mut *const ::std::os::raw::c_char, dim_params_length: size_t) -> OrtStatusPtr),
 	>,
 	pub ReadOpAttr: ::std::option::Option<
-		_system!(unsafe fn(op_attr: *const OrtOpAttr, type_: OrtOpAttrType, data: *mut ::std::os::raw::c_void, len: size_t, out: *mut size_t) -> OrtStatusPtr)
+		_system!(unsafe fn(op_attr: *const OrtOpAttr, type_: OrtOpAttrType, data: *mut ::std::os::raw::c_void, len: size_t, out: *mut size_t) -> OrtStatusPtr),
 	>,
 	pub SetDeterministicCompute: ::std::option::Option<_system!(unsafe fn(options: *mut OrtSessionOptions, value: bool) -> OrtStatusPtr)>,
 	pub KernelContext_ParallelFor: ::std::option::Option<
@@ -1928,9 +1930,9 @@ pub struct OrtApi {
 				fn_: ::std::option::Option<_system!(unsafe fn(arg1: *mut ::std::os::raw::c_void, arg2: size_t))>,
 				total: size_t,
 				num_batch: size_t,
-				usr_data: *mut ::std::os::raw::c_void
+				usr_data: *mut ::std::os::raw::c_void,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub SessionOptionsAppendExecutionProvider_OpenVINO_V2: ::std::option::Option<
 		_system!(
@@ -1938,9 +1940,9 @@ pub struct OrtApi {
 				options: *mut OrtSessionOptions,
 				provider_options_keys: *const *const ::std::os::raw::c_char,
 				provider_options_values: *const *const ::std::os::raw::c_char,
-				num_keys: size_t
+				num_keys: size_t,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub SessionOptionsAppendExecutionProvider_VitisAI: ::std::option::Option<
 		_system!(
@@ -1948,9 +1950,9 @@ pub struct OrtApi {
 				options: *mut OrtSessionOptions,
 				provider_options_keys: *const *const ::std::os::raw::c_char,
 				provider_options_values: *const *const ::std::os::raw::c_char,
-				num_keys: size_t
+				num_keys: size_t,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub KernelContext_GetScratchBuffer: ::std::option::Option<
 		_system!(
@@ -1958,9 +1960,9 @@ pub struct OrtApi {
 				context: *const OrtKernelContext,
 				mem_info: *const OrtMemoryInfo,
 				count_or_bytes: size_t,
-				out: *mut *mut ::std::os::raw::c_void
+				out: *mut *mut ::std::os::raw::c_void,
 			) -> OrtStatusPtr
-		)
+		),
 	>,
 	pub KernelInfoGetAllocator:
 		::std::option::Option<_system!(unsafe fn(info: *const OrtKernelInfo, mem_type: OrtMemType, out: *mut *mut OrtAllocator) -> OrtStatusPtr)>,
@@ -1971,10 +1973,10 @@ pub struct OrtApi {
 				external_initializer_file_names: *const *const ortchar,
 				external_initializer_file_buffer_array: *const *mut ::std::os::raw::c_char,
 				external_initializer_file_lengths: *const size_t,
-				num_external_initializer_files: size_t
+				num_external_initializer_files: size_t,
 			) -> OrtStatusPtr
-		)
-	>
+		),
+	>,
 }
 #[test]
 fn bindgen_test_layout_OrtApi() {
@@ -3368,7 +3370,7 @@ fn bindgen_test_layout_OrtApi() {
 pub enum OrtCustomOpInputOutputCharacteristic {
 	INPUT_OUTPUT_REQUIRED = 0,
 	INPUT_OUTPUT_OPTIONAL = 1,
-	INPUT_OUTPUT_VARIADIC = 2
+	INPUT_OUTPUT_VARIADIC = 2,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -3392,7 +3394,7 @@ pub struct OrtCustomOp {
 	pub GetVariadicOutputMinArity: ::std::option::Option<_system!(unsafe fn(op: *const OrtCustomOp) -> ::std::os::raw::c_int)>,
 	pub GetVariadicOutputHomogeneity: ::std::option::Option<_system!(unsafe fn(op: *const OrtCustomOp) -> ::std::os::raw::c_int)>,
 	pub CreateKernelV2: ::std::option::Option<
-		_system!(unsafe fn(op: *const OrtCustomOp, api: *const OrtApi, info: *const OrtKernelInfo, kernel: *mut *mut ::std::os::raw::c_void) -> OrtStatusPtr)
+		_system!(unsafe fn(op: *const OrtCustomOp, api: *const OrtApi, info: *const OrtKernelInfo, kernel: *mut *mut ::std::os::raw::c_void) -> OrtStatusPtr),
 	>,
 	pub KernelComputeV2: ::std::option::Option<_system!(unsafe fn(op_kernel: *mut ::std::os::raw::c_void, context: *mut OrtKernelContext) -> OrtStatusPtr)>,
 	pub InferOutputShapeFn: ::std::option::Option<_system!(unsafe fn(op: *const OrtCustomOp, arg1: *mut OrtShapeInferContext) -> OrtStatusPtr)>,
@@ -3403,7 +3405,7 @@ pub struct OrtCustomOp {
 	pub ReleaseMayInplace: ::std::option::Option<_system!(unsafe fn(input_index: *mut ::std::os::raw::c_int, output_index: *mut *mut ::std::os::raw::c_int))>,
 	pub GetAliasMap:
 		::std::option::Option<_system!(unsafe fn(input_index: *mut *mut ::std::os::raw::c_int, output_index: *mut *mut ::std::os::raw::c_int) -> size_t)>,
-	pub ReleaseAliasMap: ::std::option::Option<_system!(unsafe fn(input_index: *mut ::std::os::raw::c_int, output_index: *mut *mut ::std::os::raw::c_int))>
+	pub ReleaseAliasMap: ::std::option::Option<_system!(unsafe fn(input_index: *mut ::std::os::raw::c_int, output_index: *mut *mut ::std::os::raw::c_int))>,
 }
 #[test]
 fn bindgen_test_layout_OrtCustomOp() {
